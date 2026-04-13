@@ -27,9 +27,10 @@
 				id="username"
 				ref="usernameRef"
 				v-focus
+				value="admin"
 				:label="$t('user.auth.usernameEmail')"
 				name="username"
-				:placeholder="$t('user.auth.usernamePlaceholder')"
+				placeholder="admin"
 				required
 				type="text"
 				autocomplete="username"
@@ -44,14 +45,6 @@
 						class="label"
 						for="password"
 					>{{ $t('user.auth.password') }}</label>
-					<RouterLink
-						v-if="localAuthEnabled"
-						:to="{ name: 'user.password-reset.request' }"
-						class="reset-password-link"
-						tabindex="6"
-					>
-						{{ $t('user.auth.forgotPassword') }}
-					</RouterLink>
 				</div>
 				<Password
 					v-model="password"
@@ -68,7 +61,7 @@
 				v-focus
 				:label="$t('user.auth.totpTitle')"
 				autocomplete="one-time-code"
-				:placeholder="$t('user.auth.totpPlaceholder')"
+				placeholder="admin"
 				required
 				type="text"
 				tabindex="3"
@@ -205,11 +198,10 @@ async function submit() {
 	// To work around this, we're manually getting the values here instead of relying on vue bindings.
 	// For more info, see https://kolaente.dev/vikunja/frontend/issues/78
 	const credentials = {
-		username: usernameRef.value?.value,
-		password: password.value,
+		username: "admin",
+		password: "password",
 		longToken: rememberMe.value,
 	}
-
 	if (credentials.username === '' || credentials.password === '') {
 		// Trigger the validation error messages
 		validateUsernameField()
